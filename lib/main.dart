@@ -29,8 +29,6 @@ List<dynamic> _array = [
   0,
   0,
   0,
-  0,
-  0,
 ];
 
 class SIForm extends StatefulWidget {
@@ -67,10 +65,13 @@ class _SIFormState extends State<SIForm> {
 
   //int set = 0;
   //int set2 = 0;
-  //int exang;
-  int physical_activity = 0;
-  int smoke = 0;
-  int alcohol = 0;
+  int chest_pain = 0;
+  int exercise_induced_angina = 0;
+  int fasting_blood_sugar = 0;
+  int restecg = 0;
+  int slope = 0;
+  int ca = 0;
+  int thal = 0;
   String _final_answer = " ";
 
   //int sugar=0;
@@ -81,11 +82,12 @@ class _SIFormState extends State<SIForm> {
     super.initState();
     gender = 0;
     cholesterol = 0;
-    smoke = 0;
-    alcohol = 0;
+    chest_pain = 0;
+    fasting_blood_sugar = 0;
+    restecg = 0;
     //exang = 0;
     //sugar = 0;
-    physical_activity = 0;
+    exercise_induced_angina = 0;
     glucose = 0;
   }
 
@@ -98,66 +100,59 @@ class _SIFormState extends State<SIForm> {
     });
   }
 
-  setSelectedSmoke(int val) {
+  setSelectedChest_Pain(int val) {
     setState(() {
-      smoke = val;
-      _array[6] = smoke;
+      chest_pain = val;
+      _array[2] = chest_pain;
+      print(_array.toString());
+      //print(_array);
+    });
+  }
+
+  setSelectedFasting_blood_sugar(int val) {
+    setState(() {
+      fasting_blood_sugar = val;
+      _array[5] = fasting_blood_sugar;
       print(_array.toString());
     });
   }
 
-  setSelectedAlcohol(int val) {
+  setSelectedRestECG(int val) {
     setState(() {
-      alcohol = val;
-      _array[7] = alcohol;
+      restecg = val;
+      _array[6] = restecg;
       print(_array.toString());
     });
   }
 
-  setSelectedPhysicalActivity(int val) {
+  setSelectedSlope(int val) {
     setState(() {
-      physical_activity = val;
-      _array[8] = physical_activity;
+      slope = val;
+      _array[10] = slope;
       print(_array.toString());
     });
   }
 
-  setSelectedCholesterol(int val) {
+  setSelectedca(int val) {
     setState(() {
-      cholesterol = val;
-      if (cholesterol == 1) {
-        _array[9] = 1;
-        _array[10] = 0;
-        _array[11] = 0;
-      } else if (cholesterol == 2) {
-        _array[9] = 0;
-        _array[10] = 1;
-        _array[11] = 0;
-      } else if (cholesterol == 3) {
-        _array[9] = 0;
-        _array[10] = 0;
-        _array[11] = 1;
-      }
+      ca = val;
+      _array[11] = ca;
       print(_array.toString());
     });
   }
 
-  setSelectedGlucose(int val) {
+  setSelectedThal(int val) {
     setState(() {
-      glucose = val;
-      if (glucose == 1) {
-        _array[12] = 1;
-        _array[13] = 0;
-        _array[14] = 0;
-      } else if (glucose == 2) {
-        _array[12] = 0;
-        _array[13] = 1;
-        _array[14] = 0;
-      } else if (glucose == 3) {
-        _array[12] = 0;
-        _array[13] = 0;
-        _array[14] = 1;
-      }
+      thal = val;
+      _array[12] = thal;
+      print(_array.toString());
+    });
+  }
+
+  setSelectedExerciseInducedAngina(int val) {
+    setState(() {
+      exercise_induced_angina = val;
+      _array[8] = exercise_induced_angina;
       print(_array.toString());
     });
   }
@@ -181,10 +176,10 @@ class _SIFormState extends State<SIForm> {
   //TextEditingController thalachControlled = TextEditingController();
   //TextEditingController bpControlled = TextEditingController();
   //TextEditingController oldControlled = TextEditingController();
-  TextEditingController HeightControlled = TextEditingController();
-  TextEditingController WeightControlled = TextEditingController();
-  TextEditingController BP_High_Controlled = TextEditingController();
-  TextEditingController BP_Low_Controlled = TextEditingController();
+  TextEditingController STdepressionControlled = TextEditingController();
+  TextEditingController Rest_BP_Controlled = TextEditingController();
+  TextEditingController Cholesterol_Controlled = TextEditingController();
+  TextEditingController MaxHeartRate_Controlled = TextEditingController();
 
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.bodyText1;
@@ -250,45 +245,71 @@ class _SIFormState extends State<SIForm> {
                     Text("Female"),
                   ],
                 )),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: _minimumPadding, bottom: _minimumPadding),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    "Chest Pain?",
+                    style: textStyle,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: _minimumPadding, bottom: _minimumPadding),
+              child: Row(
+                children: <Widget>[
+                  Radio(
+                    value: 3,
+                    groupValue: chest_pain,
+                    onChanged: (val) {
+                      setSelectedChest_Pain(val);
+                      _array[2] = val;
+                    },
+                  ),
+                  Text("typical angina (3)"),
+                  Radio(
+                    value: 1,
+                    groupValue: chest_pain,
+                    onChanged: (val) {
+                      setSelectedChest_Pain(val);
+                      _array[2] = val;
+                    },
+                  ),
+                  Text("atypical angina (1)"),
+                ],
+              ),
+            ),
 
             Padding(
-                padding: EdgeInsets.only(
-                    top: _minimumPadding, bottom: _minimumPadding),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: TextField(
-                      keyboardType: TextInputType.number,
-                      //style: textStyle,
-                      controller: HeightControlled,
-                      decoration: InputDecoration(
-                          labelText: "Height",
-                          hintText: "Enter Height",
-                          labelStyle: textStyle,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
-                    )),
-                  ],
-                )),
-            Padding(
-                padding: EdgeInsets.only(
-                    top: _minimumPadding, bottom: _minimumPadding),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: TextField(
-                      keyboardType: TextInputType.number,
-                      //style: textStyle,
-                      controller: WeightControlled,
-                      decoration: InputDecoration(
-                          labelText: "Weight",
-                          hintText: "Enter Weight",
-                          labelStyle: textStyle,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
-                    )),
-                  ],
-                )),
+              padding: EdgeInsets.only(
+                  top: _minimumPadding, bottom: _minimumPadding),
+              child: Row(
+                children: <Widget>[
+                  Radio(
+                    value: 2,
+                    groupValue: chest_pain,
+                    onChanged: (val) {
+                      setSelectedChest_Pain(val);
+                      _array[2] = val;
+                    },
+                  ),
+                  Text("non-anginal pain (2)"),
+                  Radio(
+                    value: 0,
+                    groupValue: chest_pain,
+                    onChanged: (val) {
+                      setSelectedChest_Pain(val);
+                      _array[2] = val;
+                    },
+                  ),
+                  Text("asymptomatic (0)"),
+                ],
+              ),
+            ),
 
             Padding(
                 padding: EdgeInsets.only(
@@ -300,10 +321,10 @@ class _SIFormState extends State<SIForm> {
                         child: TextField(
                       keyboardType: TextInputType.number,
                       //style: textStyle,
-                      controller: BP_High_Controlled,
+                      controller: Rest_BP_Controlled,
                       decoration: InputDecoration(
-                          labelText: "Systolic blood pressure",
-                          hintText: "Enter Systolic blood pressure (High)",
+                          labelText: "Resting blood pressure",
+                          hintText: "Enter Resting blood pressure",
                           labelStyle: textStyle,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0))),
@@ -321,10 +342,10 @@ class _SIFormState extends State<SIForm> {
                         child: TextField(
                       keyboardType: TextInputType.number,
                       //style: textStyle,
-                      controller: BP_Low_Controlled,
+                      controller: Cholesterol_Controlled,
                       decoration: InputDecoration(
-                          labelText: "Diastolic blood pressure",
-                          hintText: "Enter Diastolic blood pressure (Low)",
+                          labelText: "Cholesterol",
+                          hintText: "Cholesterol",
                           labelStyle: textStyle,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0))),
@@ -336,29 +357,59 @@ class _SIFormState extends State<SIForm> {
                     top: _minimumPadding, bottom: _minimumPadding),
                 child: Row(
                   children: <Widget>[
-                    Text("Do you Smoke?", style: textStyle),
+                    Text("Fasting Blood Sugar", style: textStyle),
                     Radio(
                       value: 1,
-                      groupValue: smoke,
+                      groupValue: fasting_blood_sugar,
                       onChanged: (val) {
                         setState(() {
-                          setSelectedSmoke(val);
+                          setSelectedFasting_blood_sugar(val);
                           _submit();
                         });
                       },
                     ),
-                    Text("Yes"),
+                    Text("Yes (1)"),
                     Radio(
                       value: 0,
-                      groupValue: smoke,
+                      groupValue: fasting_blood_sugar,
                       onChanged: (val) {
                         setState(() {
-                          setSelectedSmoke(val);
+                          setSelectedFasting_blood_sugar(val);
                           _submit();
                         });
                       },
                     ),
-                    Text("No"),
+                    Text("No (0)"),
+                  ],
+                )),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: _minimumPadding, bottom: _minimumPadding),
+              child: Row(children: <Widget>[
+                Flexible(
+                    child: Text("Resting Electrocardiography Results",
+                        style: textStyle)),
+              ]),
+            ),
+            Padding(
+                padding: EdgeInsets.only(
+                    top: _minimumPadding, bottom: _minimumPadding),
+                child: Row(
+                  children: <Widget>[
+                    Radio(
+                      value: 0,
+                      groupValue: restecg,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedRestECG(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Flexible(
+                      child: Text(
+                          "showing probable or definite left ventricular hypertrophy by Estes’ criteria (0)"),
+                    ),
                   ],
                 )),
             Padding(
@@ -366,95 +417,48 @@ class _SIFormState extends State<SIForm> {
                     top: _minimumPadding, bottom: _minimumPadding),
                 child: Row(
                   children: <Widget>[
-                    Text("Do you consume Alcohol?", style: textStyle),
                     Radio(
                       value: 1,
-                      groupValue: alcohol,
+                      groupValue: restecg,
                       onChanged: (val) {
                         setState(() {
-                          setSelectedAlcohol(val);
+                          setSelectedRestECG(val);
                           _submit();
                         });
                       },
                     ),
-                    Text("Yes"),
-                    Radio(
-                      value: 0,
-                      groupValue: alcohol,
-                      onChanged: (val) {
-                        setState(() {
-                          setSelectedAlcohol(val);
-                          _submit();
-                        });
-                      },
-                    ),
-                    Text("No"),
-                  ],
-                )),
-            Padding(
-                padding: EdgeInsets.only(
-                    top: _minimumPadding, bottom: _minimumPadding),
-                child: Row(
-                  children: <Widget>[
-                    Text("Are you physically active?", style: textStyle),
-                    Radio(
-                      value: 1,
-                      groupValue: physical_activity,
-                      onChanged: (val) {
-                        setState(() {
-                          setSelectedPhysicalActivity(val);
-                          _submit();
-                        });
-                      },
-                    ),
-                    Text("Yes"),
-                    Radio(
-                      value: 0,
-                      groupValue: physical_activity,
-                      onChanged: (val) {
-                        setState(() {
-                          setSelectedPhysicalActivity(val);
-                          _submit();
-                        });
-                      },
-                    ),
-                    Text("No"),
-                  ],
-                )),
-            Padding(
-                padding: EdgeInsets.only(
-                    top: _minimumPadding, bottom: _minimumPadding),
-                child: Row(
-                  children: <Widget>[
-                    Text("Cholesterol", style: textStyle),
-                    Radio(
-                      value: 1,
-                      groupValue: cholesterol,
-                      onChanged: (val) {
-                        setSelectedCholesterol(val);
-                        _submit();
-                      },
-                    ),
-                    Text("Normal"),
+                    Text("normal (1)"),
                     Radio(
                       value: 2,
-                      groupValue: cholesterol,
-                      onChanged: (val) {
-                        setSelectedCholesterol(val);
-                      },
-                    ),
-                    Text("High"),
-                    Radio(
-                      value: 3,
-                      groupValue: cholesterol,
+                      groupValue: restecg,
                       onChanged: (val) {
                         setState(() {
-                          setSelectedCholesterol(val);
+                          setSelectedRestECG(val);
                           _submit();
                         });
                       },
                     ),
-                    Text("Very High"),
+                    Text("having ST-T wave abnormality (2)"),
+                  ],
+                )),
+            Padding(
+                padding: EdgeInsets.only(
+                    top: _minimumPadding, bottom: _minimumPadding),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                        child: TextField(
+                      keyboardType: TextInputType.number,
+                      //style: textStyle,
+                      controller: MaxHeartRate_Controlled,
+                      decoration: InputDecoration(
+                          labelText: "Max Heart Rate",
+                          hintText: "Max Heart Rate",
+                          labelStyle: textStyle,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                    )),
                   ],
                 )),
             Padding(
@@ -462,42 +466,204 @@ class _SIFormState extends State<SIForm> {
                     top: _minimumPadding, bottom: _minimumPadding),
                 child: Row(
                   children: <Widget>[
-                    Text("Glucose", style: textStyle),
+                    Text("Exercise Induced Angina", style: textStyle),
                     Radio(
-                        value: 1,
-                        groupValue: glucose,
-                        onChanged: (val) {
-                          setState(() {
-                            setSelectedGlucose(val);
-                            _submit();
-                          });
-                        }),
-                    Text("Normal"),
-                    Radio(
-                      value: 2,
-                      groupValue: glucose,
+                      value: 1,
+                      groupValue: exercise_induced_angina,
                       onChanged: (val) {
                         setState(() {
-                          setSelectedGlucose(val);
+                          setSelectedExerciseInducedAngina(val);
                           _submit();
                         });
                       },
                     ),
-                    Text("High"),
+                    Text("Yes (1)"),
                     Radio(
-                      value: 3,
-                      groupValue: glucose,
+                      value: 0,
+                      groupValue: exercise_induced_angina,
                       onChanged: (val) {
                         setState(() {
-                          setSelectedGlucose(val);
+                          setSelectedExerciseInducedAngina(val);
                           _submit();
                         });
                       },
                     ),
-                    Text("Very High"),
+                    Text("No (0)"),
                   ],
                 )),
-
+            Padding(
+                padding: EdgeInsets.only(
+                    top: _minimumPadding, bottom: _minimumPadding),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: TextField(
+                      keyboardType: TextInputType.number,
+                      //style: textStyle,
+                      controller: STdepressionControlled,
+                      decoration: InputDecoration(
+                          labelText: "ST depression",
+                          hintText: "Enter ST depression",
+                          labelStyle: textStyle,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                    )),
+                  ],
+                )),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: _minimumPadding, bottom: _minimumPadding),
+              child: Row(children: <Widget>[
+                Text("Slope of the peak exercise ST segment", style: textStyle),
+              ]),
+            ),
+            Padding(
+                padding: EdgeInsets.only(
+                    top: _minimumPadding, bottom: _minimumPadding),
+                child: Row(
+                  children: <Widget>[
+                    Radio(
+                      value: 0,
+                      groupValue: slope,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedSlope(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Text("0"),
+                    Radio(
+                      value: 1,
+                      groupValue: slope,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedSlope(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Text("1"),
+                    Radio(
+                      value: 2,
+                      groupValue: slope,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedSlope(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Text("2"),
+                  ],
+                )),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: _minimumPadding, bottom: _minimumPadding),
+              child: Row(children: <Widget>[
+                Text("Number of major vessels (0-3)", style: textStyle),
+              ]),
+            ),
+            Padding(
+                padding: EdgeInsets.only(
+                    top: _minimumPadding, bottom: _minimumPadding),
+                child: Row(
+                  children: <Widget>[
+                    Radio(
+                      value: 0,
+                      groupValue: ca,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedca(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Text("0"),
+                    Radio(
+                      value: 1,
+                      groupValue: ca,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedca(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Text("1"),
+                    Radio(
+                      value: 2,
+                      groupValue: ca,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedca(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Text("2"),
+                    Radio(
+                      value: 3,
+                      groupValue: ca,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedca(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Text("3"),
+                  ],
+                )),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: _minimumPadding, bottom: _minimumPadding),
+              child: Row(children: <Widget>[
+                Text("Thalassemia", style: textStyle),
+              ]),
+            ),
+            Padding(
+                padding: EdgeInsets.only(
+                    top: _minimumPadding, bottom: _minimumPadding),
+                child: Row(
+                  children: <Widget>[
+                    Radio(
+                      value: 1,
+                      groupValue: thal,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedThal(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Text("fixed defect (1)"),
+                    Radio(
+                      value: 2,
+                      groupValue: thal,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedThal(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Flexible(child: Text("normal blood flow (2)")),
+                    Radio(
+                      value: 3,
+                      groupValue: ca,
+                      onChanged: (val) {
+                        setState(() {
+                          setSelectedThal(val);
+                          _submit();
+                        });
+                      },
+                    ),
+                    Flexible(
+                      child: Text("reversible defect (3)"),
+                    )
+                  ],
+                )),
             Padding(
                 padding: EdgeInsets.only(
                     top: _minimumPadding, bottom: _minimumPadding),
@@ -510,6 +676,7 @@ class _SIFormState extends State<SIForm> {
                         child: Text("Diagnosis", textScaleFactor: 1),
                         onPressed: () {
                           setState(() {
+                            print(_array.toString());
                             var array2 = [_array];
                             //String array2 = jsonEncode(_array);
                             //print(array2);
@@ -540,7 +707,10 @@ class _SIFormState extends State<SIForm> {
                       child: RaisedButton(
                         color: Colors.tealAccent,
                         textColor: Theme.of(context).primaryColorDark,
-                        child: Text("Reset",textScaleFactor: 1,),
+                        child: Text(
+                          "Reset",
+                          textScaleFactor: 1,
+                        ),
                         onPressed: () {
                           setState(() {
                             _reset();
@@ -594,20 +764,20 @@ class _SIFormState extends State<SIForm> {
   void _submit() {
     int age = int.parse(ageControlled.text);
     _array[0] = age;
-    int height = int.parse(HeightControlled.text);
-    _array[2] = height;
-    int weight = int.parse(WeightControlled.text);
-    _array[3] = weight;
-    int BP_High = int.parse(BP_High_Controlled.text);
-    _array[4] = BP_High;
-    int BP_Low = int.parse(BP_Low_Controlled.text);
-    _array[5] = BP_Low;
+    double STdepression = double.parse(STdepressionControlled.text);
+    _array[9] = STdepression;
+    int Rest_BP = int.parse(Rest_BP_Controlled.text);
+    _array[3] = Rest_BP;
+    int Cholesterol = int.parse(Cholesterol_Controlled.text);
+    _array[4] = Cholesterol;
+    int MaxHeartRate = int.parse(MaxHeartRate_Controlled.text);
+    _array[7] = MaxHeartRate;
   }
 
   Future<String> predictHeartRisk(var body) async {
     var client = new http.Client();
     var uri =
-        Uri.parse('https://college-project-hai-re.herokuapp.com/predict/');
+        Uri.parse('https://heart-disease-be-project.herokuapp.com/predict/');
 
     Map<String, String> headers = {"Content-type": "application/json"};
     String jsonString = jsonEncode(body);
@@ -653,10 +823,10 @@ class _SIFormState extends State<SIForm> {
 
   void _reset() {
     ageControlled.text = " ";
-    HeightControlled.text = " ";
-    WeightControlled.text = " ";
-    BP_Low_Controlled.text = " ";
-    BP_High_Controlled.text = " ";
+    STdepressionControlled.text = " ";
+    Cholesterol_Controlled.text = " ";
+    MaxHeartRate_Controlled.text = " ";
+    Rest_BP_Controlled.text = " ";
     //thalachControlled.text = " ";
     //.text = " ";
     //cholestrolControlled.text = " ";
@@ -669,14 +839,14 @@ class _SIFormState extends State<SIForm> {
     gender = 0;
     //exang = 0;
     // sugar = 0;
-    physical_activity = 0;
-    smoke = 0;
-    alcohol = 0;
+    exercise_induced_angina = 0;
+    ca = 0;
+    thal = 0;
+    slope = 0;
+    fasting_blood_sugar = 0;
+    restecg = 0;
     cholesterol = 0;
-    glucose = 0;
     _array = [
-      0,
-      0,
       0,
       0,
       0,
